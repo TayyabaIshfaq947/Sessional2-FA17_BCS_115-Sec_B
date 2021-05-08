@@ -1,3 +1,4 @@
+![threepagescompleted](https://user-images.githubusercontent.com/79797290/117547005-afe2ae80-b046-11eb-90d5-9735e315d282.gif)
 ![navigationdrawer](https://user-images.githubusercontent.com/79797290/117546974-8a55a500-b046-11eb-98f8-f5e8605c9606.PNG)
 ![intro splash screen](https://user-images.githubusercontent.com/79797290/117546879-1b784c00-b046-11eb-9245-df3fe8ef90aa.PNG)
 ![homepagewith two options](https://user-images.githubusercontent.com/79797290/117546589-96d8fe00-b044-11eb-9c15-a38a9f511931.PNG)
