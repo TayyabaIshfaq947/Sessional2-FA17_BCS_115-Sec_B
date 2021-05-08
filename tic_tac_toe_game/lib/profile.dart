@@ -1,47 +1,83 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:splashscreen/splashscreen.dart';
-import 'package:tic_tac_toe_game/screens/home.dart';
+import 'package:lottie/lottie.dart';
+import 'screens/homepage.dart';
 
 class profilepage extends StatefulWidget {
+  profilepage({
+    Key key,
+  }) : super(key: key);
   @override
   _profilepageState createState() => _profilepageState();
 }
 
 class _profilepageState extends State<profilepage> {
+  void initState() {
+    Future.delayed(Duration(seconds: 6), () {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => selecttype()));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return _splashscreen();
-  }
-}
-
-class _splashscreen extends StatelessWidget {
-  Widget build(BuildContext context) {
-    return new SplashScreen(
-      seconds: 3,
-      //navigateAfterSeconds: new _homescreen(),
-      title: new Text(
-        "Tayyaba Ishfaq\n\nFA17-BCS-115",
-        style: new TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 20.0,
-          color: Colors.white,
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        backgroundColor: Colors.cyan,
+        body: SafeArea(
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Center(
+              child: CircleAvatar(
+                backgroundImage: AssetImage('assets/images/tayyaba.png'),
+                backgroundColor: Colors.white,
+                radius: 50.0,
+              ),
+            ),
+            Text(
+              'Tayyaba Ishfaq',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 30.0,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+            Text(
+              'FA17_BCS_115',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 30.0,
+                  fontWeight: FontWeight.bold,
+                  fontStyle: FontStyle.normal),
+            ),
+            SizedBox(
+              width: 280.0,
+              height: 20.0,
+              child: Divider(
+                color: Colors.pink,
+                thickness: 4.0,
+              ),
+            ),
+            Container(
+              height: 140,
+              width: 140,
+              child: Lottie.asset('assets/images/loader.json'),
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            Text(
+              'Loading....',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 30.0,
+                  fontWeight: FontWeight.bold,
+                  fontStyle: FontStyle.normal),
+            )
+          ]),
         ),
       ),
-      loadingText: new Text(
-        "Loading...",
-        style: new TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 20.0,
-          color: Colors.white,
-        ),
-      ),
-      image: Image.asset(
-        "assets/images/tayyaba.png",
-      ),
-      backgroundColor: Colors.cyan,
-      styleTextUnderTheLoader: new TextStyle(),
-      photoSize: 60.0,
-      loaderColor: Colors.white,
     );
   }
 }

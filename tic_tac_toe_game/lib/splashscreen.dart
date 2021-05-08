@@ -11,12 +11,12 @@ class splashscreen extends StatefulWidget {
 }
 
 class _splashscreenState extends State<splashscreen> {
+  // ignore: must_call_super
   void initState() {
     Future.delayed(Duration(seconds: 2), () {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => profilepage()));
     });
-    super.initState();
   }
 
   @override

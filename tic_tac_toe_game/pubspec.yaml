@@ -49,6 +49,8 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/data.json
+    - assets/images/loader.json
+    - assets/images/tayyaba.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
