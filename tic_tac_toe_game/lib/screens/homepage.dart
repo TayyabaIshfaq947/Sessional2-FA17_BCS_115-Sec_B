@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'simplelevel.dart';
 import 'hardlevel.dart';
-import 'package:tic_tac_toe_game/ContacUs.dart';
 import 'package:contactus/contactus.dart';
 import 'package:tic_tac_toe_game/flutter_icon_home.dart';
 
@@ -14,7 +13,7 @@ class _selecttypeState extends State<selecttype> {
   Widget customcard() {
     return Padding(
       padding: EdgeInsets.symmetric(
-        vertical: 20.0,
+        vertical: 10.0,
         horizontal: 30.0,
       ),
       child: InkWell(
@@ -25,17 +24,17 @@ class _selecttypeState extends State<selecttype> {
         child: Material(
           color: Colors.orange,
           elevation: 10.0,
-          borderRadius: BorderRadius.circular(25.0),
+          borderRadius: BorderRadius.circular(20.0),
           child: Container(
             child: Column(
               children: <Widget>[
                 Padding(
                   padding: EdgeInsets.symmetric(
-                    vertical: 40.0,
+                    vertical: 30.0,
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.all(16.0),
                   child: Center(
                     child: Text(
                       'Easy level',
@@ -58,7 +57,7 @@ class _selecttypeState extends State<selecttype> {
   Widget customcard1() {
     return Padding(
       padding: EdgeInsets.symmetric(
-        vertical: 20.0,
+        vertical: 10.0,
         horizontal: 30.0,
       ),
       child: InkWell(
@@ -69,17 +68,17 @@ class _selecttypeState extends State<selecttype> {
         child: Material(
           color: Colors.orange,
           elevation: 10.0,
-          borderRadius: BorderRadius.circular(25.0),
+          borderRadius: BorderRadius.circular(20.0),
           child: Container(
             child: Column(
               children: <Widget>[
                 Padding(
                   padding: EdgeInsets.symmetric(
-                    vertical: 40.0,
+                    vertical: 30.0,
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.all(15.0),
                   child: Center(
                     child: Text(
                       'Hard Level',
@@ -129,9 +128,113 @@ class _selecttypeState extends State<selecttype> {
         ],
       ),
       body: ListView(
-        children: <Widget>[customcard(), customcard1()],
+        children: <Widget>[
+          SizedBox(
+            height: 100.0,
+          ),
+          CircleAvatar(
+            backgroundImage: AssetImage('assets/images/tictactoe.png'),
+            backgroundColor: Colors.white,
+            radius: 80.0,
+          ),
+          customcard(),
+          customcard1()
+        ],
       ),
       drawer: _myDrawer(),
+    );
+  }
+}
+
+class _myDrawer extends StatelessWidget {
+  final Function ontap;
+
+  _myDrawer({this.ontap});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 0.35,
+      child: Drawer(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(color: Colors.cyan),
+              child: Padding(
+                padding: EdgeInsets.all(6),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Container(
+                      width: 60,
+                      height: 60,
+                      margin: EdgeInsets.only(left: 30),
+                      child: CircleAvatar(
+                        backgroundImage:
+                            AssetImage("assets/images/tayyaba.png"),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Text(
+                      'Tayyaba Ishfaq',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 3,
+                    ),
+                    Text(
+                      'taibatahira84@gmail.com',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.arrow_right),
+              title: Text('Easy Level'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => simple()),
+                );
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.arrow_right),
+              title: Text('Hard Level'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => hard()),
+                );
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.account_box_rounded),
+              title: Text('Contact Us'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ContactUs()),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
