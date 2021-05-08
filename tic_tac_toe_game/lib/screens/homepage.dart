@@ -22,7 +22,7 @@ class _selecttypeState extends State<selecttype> {
               MaterialPageRoute(builder: (context) => simple()));
         },
         child: Material(
-          color: Colors.orange,
+          color: Colors.pink,
           elevation: 10.0,
           borderRadius: BorderRadius.circular(20.0),
           child: Container(
@@ -66,7 +66,7 @@ class _selecttypeState extends State<selecttype> {
               .pushReplacement(MaterialPageRoute(builder: (context) => hard()));
         },
         child: Material(
-          color: Colors.orange,
+          color: Colors.pink,
           elevation: 10.0,
           borderRadius: BorderRadius.circular(20.0),
           child: Container(
@@ -130,12 +130,20 @@ class _selecttypeState extends State<selecttype> {
       body: ListView(
         children: <Widget>[
           SizedBox(
-            height: 100.0,
+            height: 50,
           ),
-          CircleAvatar(
-            backgroundImage: AssetImage('assets/images/tictactoe.png'),
-            backgroundColor: Colors.white,
-            radius: 80.0,
+          Center(
+            child: Text(
+              "Select One Option",
+              style: TextStyle(
+                fontSize: 20.0,
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 100,
           ),
           customcard(),
           customcard1()
