@@ -2,8 +2,25 @@ import 'package:flutter/material.dart';
 
 class customDialog extends StatelessWidget {
   final title;
+  final content;
+  final actiontext;
+  final VoidCallback callback;
+
+  customDialog(this.callback, this.title, this.content,
+      [this.actiontext = "Reset"]);
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return AlertDialog(
+      backgroundColor: Colors.tealAccent,
+      title: new Text(title),
+      content: new Text(content),
+      actions: [
+        FlatButton(
+          onPressed: callback,
+          color: Colors.red,
+          child: Text(actiontext),
+        )
+      ],
+    );
   }
 }
