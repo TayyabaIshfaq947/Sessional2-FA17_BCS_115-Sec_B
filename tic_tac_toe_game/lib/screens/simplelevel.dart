@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:tic_tac_toe_game/flutter_icon_home.dart';
 import 'package:tic_tac_toe_game/screens/dialog.dart';
@@ -64,11 +65,36 @@ class _gamepageState extends State<gamepage> {
         player2.add(gb.id);
       }
       gb.enabled = false;
-      checkWinner();
+      int winner = checkWinner();
+      if (winner == -1) {
+        if (buttonlist.every((p) => p.text != "")) {
+          showDialog(
+              context: context,
+              builder: (_) => customDialog(
+                  resetGame, "Game Tie", "To start Again click Ok"));
+        } else {
+          activeplayer == 2 ? autoplay() : null;
+        }
+      }
     });
   }
 
-  void checkWinner() {
+  void autoplay() {
+    var emptyCells = new List.empty(growable: true);
+    var list = new List.generate(9, (i) => i + 1);
+    for (var cellID in list) {
+      if (!(player1.contains(cellID) || player2.contains(cellID))) {
+        emptyCells.add(cellID);
+      }
+    }
+    var r = new Random();
+    var randindex = r.nextInt(emptyCells.length - 1);
+    var cellId = emptyCells[randindex];
+    int i = buttonlist.indexWhere((p) => p.id == cellId);
+    playGame(buttonlist[i]);
+  }
+
+  int checkWinner() {
     var winner = -1;
     //row1
     if (player1.contains(1) && player1.contains(2) && player1.contains(3)) {
@@ -130,15 +156,16 @@ class _gamepageState extends State<gamepage> {
       if (winner == 1) {
         showDialog(
             context: context,
-            builder: (_) => customDialog(resetGame, "Player 1 Won",
-                "To start Again click Reset Button"));
+            builder: (_) => customDialog(
+                resetGame, "Player 1 Won", "To start Again click Ok"));
       } else {
         showDialog(
             context: context,
-            builder: (_) => customDialog(resetGame, "Player 2 Won",
-                "To start Again click Reset Button"));
+            builder: (_) => customDialog(
+                resetGame, "Player 2 Won", "To start Again click Ok"));
       }
     }
+    return winner;
   }
 
   void resetGame() {
@@ -184,6 +211,17 @@ class _gamepageState extends State<gamepage> {
         width: 900,
         child: Column(
           children: [
+            SizedBox(
+              height: 20.0,
+            ),
+            Text(
+              "Easy Level",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 40.0,
+                  fontWeight: FontWeight.bold,
+                  fontStyle: FontStyle.italic),
+            ),
             SizedBox(
               height: 20.0,
             ),

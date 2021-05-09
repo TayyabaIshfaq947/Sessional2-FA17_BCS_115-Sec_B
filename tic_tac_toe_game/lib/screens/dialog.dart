@@ -7,7 +7,7 @@ class customDialog extends StatelessWidget {
   final VoidCallback callback;
 
   customDialog(this.callback, this.title, this.content,
-      [this.actiontext = "Reset"]);
+      [this.actiontext = "Ok"]);
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -16,7 +16,9 @@ class customDialog extends StatelessWidget {
       content: new Text(content),
       actions: [
         FlatButton(
-          onPressed: callback,
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
           color: Colors.red,
           child: Text(actiontext),
         )
