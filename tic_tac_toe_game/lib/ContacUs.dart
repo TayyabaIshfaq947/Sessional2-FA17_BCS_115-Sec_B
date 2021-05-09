@@ -6,6 +6,7 @@ import 'flutter_icon_home.dart';
 import 'screens/simplelevel.dart';
 import 'screens/hardlevel.dart';
 
+/*
 class contactus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -148,3 +149,4 @@ class _myDrawer extends StatelessWidget {
     );
   }
 }
+*/
