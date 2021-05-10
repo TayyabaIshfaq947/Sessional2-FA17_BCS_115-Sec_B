@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'simplelevel.dart';
 import 'hardlevel.dart';
 import 'package:contactus/contactus.dart';
-import 'package:tic_tac_toe_game/flutter_icon_home.dart';
+import 'package:tictactoegame_aap/flutter_icon_home.dart';
+import 'package:tictactoegame_aap/ContactUs.dart';
 
 class selecttype extends StatefulWidget {
   @override

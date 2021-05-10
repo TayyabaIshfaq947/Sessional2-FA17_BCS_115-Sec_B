@@ -4,11 +4,10 @@ import 'dart:async';
 import 'package:contactus/contactus.dart';
 import 'package:flutter/material.dart';
 import 'package:giffy_dialog/giffy_dialog.dart';
-import 'package:tic_tac_toe_game/screens/simplelevel.dart';
+import 'package:tictactoegame_aap/screens/simplelevel.dart';
 import '../flutter_icon_home.dart';
 import 'game_button.dart';
 import 'homepage.dart';
-import 'dart:async';
 
 class hard extends StatelessWidget {
   @override
@@ -308,133 +307,126 @@ class _gamepageState extends State<gamepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-          backgroundColor: Colors.cyan,
-          appBar: AppBar(
-            backgroundColor: Colors.pink,
-            title: Center(
-              child: Text(
-                "Tic Tac Toe",
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
+      backgroundColor: Colors.cyan,
+      appBar: AppBar(
+        backgroundColor: Colors.pink,
+        title: Center(
+          child: Text(
+            "Tic Tac Toe",
+            style: TextStyle(
+              color: Colors.white,
             ),
-            actions: <Widget>[
-              IconButton(
-                  icon: Icon(MyFlutterApp.home),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => selecttype()));
-                  }),
-              IconButton(
-                icon: const Icon(Icons.contact_phone_outlined),
-                tooltip: 'ContactUs',
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ContactUs()));
-                },
-              ),
-            ],
           ),
-          body: Container(
-            height: 1000,
-            width: 1000,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 20.0,
-                ),
-                Text(
-                  "Hard Level",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 40.0,
-                      fontWeight: FontWeight.bold,
-                      fontStyle: FontStyle.italic),
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                Center(
-                  child: Container(
-                    height: 300,
-                    width: 300,
-                    padding: EdgeInsets.fromLTRB(20, 6.0, 20, 10),
-                    child: Expanded(
-                      child: GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 4,
-                          childAspectRatio: 1.0,
-                          mainAxisSpacing: 5.0,
-                          crossAxisSpacing: 5.0,
+        ),
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(MyFlutterApp.home),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => selecttype()));
+              }),
+          IconButton(
+            icon: const Icon(Icons.contact_phone_outlined),
+            tooltip: 'ContactUs',
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ContactUs()));
+            },
+          ),
+        ],
+      ),
+      body: Container(
+        height: 1000,
+        width: 1000,
+        child: Column(
+          children: [
+            SizedBox(
+              height: 20.0,
+            ),
+            Text(
+              "Hard Level",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 40.0,
+                  fontWeight: FontWeight.bold,
+                  fontStyle: FontStyle.italic),
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            Center(
+              child: Container(
+                height: 300,
+                width: 300,
+                padding: EdgeInsets.fromLTRB(20, 6.0, 20, 10),
+                child: Expanded(
+                  child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 4,
+                      childAspectRatio: 1.0,
+                      mainAxisSpacing: 5.0,
+                      crossAxisSpacing: 5.0,
+                    ),
+                    padding: EdgeInsets.all(8.0),
+                    itemCount: buttonlist.length,
+                    itemBuilder: (context, i) => SizedBox(
+                      height: 100.0,
+                      width: 100.0,
+                      child: RaisedButton(
+                        padding: EdgeInsets.all(5.0),
+                        onPressed: buttonlist[i].enabled
+                            ? () => playGame(buttonlist[i])
+                            : null,
+                        child: Text(
+                          buttonlist[i].text,
+                          style: TextStyle(color: Colors.white, fontSize: 15.0),
                         ),
-                        padding: EdgeInsets.all(8.0),
-                        itemCount: buttonlist.length,
-                        itemBuilder: (context, i) => SizedBox(
-                          height: 100.0,
-                          width: 100.0,
-                          child: RaisedButton(
-                            padding: EdgeInsets.all(5.0),
-                            onPressed: buttonlist[i].enabled
-                                ? () => playGame(buttonlist[i])
-                                : null,
-                            child: Text(
-                              buttonlist[i].text,
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 15.0),
-                            ),
-                            color: buttonlist[i].bg,
-                            disabledColor: buttonlist[i].bg,
-                          ),
-                        ),
+                        color: buttonlist[i].bg,
+                        disabledColor: buttonlist[i].bg,
                       ),
                     ),
                   ),
                 ),
-                FlatButton(
-                  onPressed: resetGame,
-                  child: Text(
-                    "Reset",
-                    style: TextStyle(color: Colors.white, fontSize: 30.0),
-                  ),
-                  color: Colors.pinkAccent,
-                  shape: RoundedRectangleBorder(
-                      side: BorderSide(
-                          color: Colors.blue,
-                          width: 1,
-                          style: BorderStyle.solid),
-                      borderRadius: BorderRadius.circular(50)),
-                  padding: EdgeInsets.all(10.0),
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                FlatButton(
-                  onPressed: () {
-                    setState(() {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => selecttype()));
-                    });
-                  },
-                  child: Text(
-                    "Quit",
-                    style: TextStyle(color: Colors.white, fontSize: 30.0),
-                  ),
-                  color: Colors.red,
-                  shape: RoundedRectangleBorder(
-                      side: BorderSide(
-                          color: Colors.blue,
-                          width: 1,
-                          style: BorderStyle.solid),
-                      borderRadius: BorderRadius.circular(50)),
-                  padding: EdgeInsets.all(8.0),
-                )
-              ],
+              ),
             ),
-          ),
-          drawer: _myDrawer(),
+            FlatButton(
+              onPressed: resetGame,
+              child: Text(
+                "Reset",
+                style: TextStyle(color: Colors.white, fontSize: 30.0),
+              ),
+              color: Colors.pinkAccent,
+              shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                      color: Colors.blue, width: 1, style: BorderStyle.solid),
+                  borderRadius: BorderRadius.circular(50)),
+              padding: EdgeInsets.all(10.0),
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
+            FlatButton(
+              onPressed: () {
+                setState(() {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => selecttype()));
+                });
+              },
+              child: Text(
+                "Quit",
+                style: TextStyle(color: Colors.white, fontSize: 30.0),
+              ),
+              color: Colors.red,
+              shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                      color: Colors.blue, width: 1, style: BorderStyle.solid),
+                  borderRadius: BorderRadius.circular(50)),
+              padding: EdgeInsets.all(8.0),
+            )
+          ],
+        ),
+      ),
+      drawer: _myDrawer(),
     );
   }
 }
@@ -464,7 +456,7 @@ class _myDrawer extends StatelessWidget {
                       margin: EdgeInsets.only(left: 30),
                       child: CircleAvatar(
                         backgroundImage:
-                        AssetImage("assets/images/tayyaba.png"),
+                            AssetImage("assets/images/tayyaba.png"),
                       ),
                     ),
                     SizedBox(
@@ -529,4 +521,3 @@ class _myDrawer extends StatelessWidget {
     );
   }
 }
-

@@ -1,8 +1,9 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:tic_tac_toe_game/flutter_icon_home.dart';
-import 'package:tic_tac_toe_game/screens/dialog.dart';
-import 'package:tic_tac_toe_game/screens/game_button.dart';
+import 'package:tictactoegame_aap/flutter_icon_home.dart';
+import 'package:tictactoegame_aap/screens/crashscreen.dart';
+import 'package:tictactoegame_aap/screens/dialog.dart';
+import 'package:tictactoegame_aap/screens/game_button.dart';
 import 'homepage.dart';
 import 'package:contactus/contactus.dart';
 import 'hardlevel.dart';
@@ -27,9 +28,8 @@ class _gamepageState extends State<gamepage> {
   var player1;
   var player2;
   var activeplayer;
-  int limit = 5;
-  int player1count = 0;
-  int player2count = 0;
+  var check_limit = 1;
+  var count = 0;
   @override
   void initState() {
     super.initState();
@@ -157,18 +157,46 @@ class _gamepageState extends State<gamepage> {
     }
     if (winner != -1) {
       if (winner == 1) {
+        count++;
         showDialog(
             context: context,
             builder: (_) => customDialog(
-                resetGame, "Player 1 Won", "To start Again click Ok"));
+                resetGame, "Player 1 Won", "To start Again click Ok", _Timer));
       } else {
         showDialog(
             context: context,
             builder: (_) => customDialog(
-                resetGame, "Player 2 Won", "To start Again click Ok"));
+                resetGame, "Player 2 Won", "To start Again click Ok", _Timer));
       }
     }
     return winner;
+  }
+
+  void _Timer() {
+    setState(() {
+      if (check_limit < 5) {
+        resetGame();
+        setState(() {
+          check_limit++;
+        });
+      } else {
+        getup();
+        check_limit = 0;
+      }
+    });
+  }
+
+  void getup() {
+    setState(() {
+      buttonlist = doInit();
+    });
+
+    Navigator.push(
+        context,
+        new MaterialPageRoute(
+            builder: (context) => new chrashpage(
+                  score: count,
+                )));
   }
 
   void resetGame() {

@@ -33,6 +33,9 @@ dependencies:
   rflutter_alert: ^1.0.2
   splashscreen: ^1.2.0
   contactus: ^1.1.7
+  shared_preferences: ^2.0.5
+  provider: ^5.0.0
+  group_radio_button: ^1.0.1
 
 dev_dependencies:
   flutter_test:
