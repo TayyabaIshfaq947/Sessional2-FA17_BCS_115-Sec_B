@@ -100,77 +100,75 @@ class _gamepageState extends State<gamepage> {
   int checkWinner() {
     var winner = -1;
     //row1
-    if (player1count < limit && player2count < limit) {
-      if (player1.contains(1) && player1.contains(2) && player1.contains(3)) {
-        winner = 1;
-      }
-      if (player2.contains(1) && player2.contains(2) && player2.contains(3)) {
-        winner = 2;
-      }
-      //row2
-      if (player1.contains(4) && player1.contains(5) && player1.contains(6)) {
-        winner = 1;
-      }
-      if (player2.contains(4) && player2.contains(5) && player2.contains(6)) {
-        winner = 2;
-      }
-      //row 3
-      if (player1.contains(7) && player1.contains(8) && player1.contains(9)) {
-        winner = 1;
-      }
-      if (player2.contains(7) && player2.contains(8) && player2.contains(9)) {
-        winner = 2;
-      }
-      //column1
-      if (player1.contains(1) && player1.contains(4) && player1.contains(7)) {
-        winner = 1;
-      }
-      if (player2.contains(1) && player2.contains(4) && player2.contains(7)) {
-        winner = 2;
-      }
-      //column2
-      if (player1.contains(2) && player1.contains(5) && player1.contains(8)) {
-        winner = 1;
-      }
-      if (player2.contains(2) && player2.contains(5) && player2.contains(8)) {
-        winner = 2;
-      }
-      //column 3
-      if (player1.contains(3) && player1.contains(6) && player1.contains(9)) {
-        winner = 1;
-      }
-      if (player2.contains(3) && player2.contains(6) && player2.contains(9)) {
-        winner = 2;
-      }
-      //diagonal1
-      if (player1.contains(1) && player1.contains(5) && player1.contains(9)) {
-        winner = 1;
-      }
-      if (player2.contains(1) && player2.contains(5) && player2.contains(9)) {
-        winner = 2;
-      }
-      // diagonal 2
-      if (player1.contains(3) && player1.contains(5) && player1.contains(7)) {
-        winner = 1;
-      }
-      if (player2.contains(3) && player2.contains(5) && player2.contains(7)) {
-        winner = 2;
-      }
-      if (winner != -1) {
-        if (winner == 1) {
-          showDialog(
-              context: context,
-              builder: (_) => customDialog(
-                  resetGame, "Player 1 Won", "To start Again click Ok"));
-        } else {
-          showDialog(
-              context: context,
-              builder: (_) => customDialog(
-                  resetGame, "Player 2 Won", "To start Again click Ok"));
-        }
-      }
-      return winner;
+    if (player1.contains(1) && player1.contains(2) && player1.contains(3)) {
+      winner = 1;
     }
+    if (player2.contains(1) && player2.contains(2) && player2.contains(3)) {
+      winner = 2;
+    }
+    //row2
+    if (player1.contains(4) && player1.contains(5) && player1.contains(6)) {
+      winner = 1;
+    }
+    if (player2.contains(4) && player2.contains(5) && player2.contains(6)) {
+      winner = 2;
+    }
+    //row 3
+    if (player1.contains(7) && player1.contains(8) && player1.contains(9)) {
+      winner = 1;
+    }
+    if (player2.contains(7) && player2.contains(8) && player2.contains(9)) {
+      winner = 2;
+    }
+    //column1
+    if (player1.contains(1) && player1.contains(4) && player1.contains(7)) {
+      winner = 1;
+    }
+    if (player2.contains(1) && player2.contains(4) && player2.contains(7)) {
+      winner = 2;
+    }
+    //column2
+    if (player1.contains(2) && player1.contains(5) && player1.contains(8)) {
+      winner = 1;
+    }
+    if (player2.contains(2) && player2.contains(5) && player2.contains(8)) {
+      winner = 2;
+    }
+    //column 3
+    if (player1.contains(3) && player1.contains(6) && player1.contains(9)) {
+      winner = 1;
+    }
+    if (player2.contains(3) && player2.contains(6) && player2.contains(9)) {
+      winner = 2;
+    }
+    //diagonal1
+    if (player1.contains(1) && player1.contains(5) && player1.contains(9)) {
+      winner = 1;
+    }
+    if (player2.contains(1) && player2.contains(5) && player2.contains(9)) {
+      winner = 2;
+    }
+    // diagonal 2
+    if (player1.contains(3) && player1.contains(5) && player1.contains(7)) {
+      winner = 1;
+    }
+    if (player2.contains(3) && player2.contains(5) && player2.contains(7)) {
+      winner = 2;
+    }
+    if (winner != -1) {
+      if (winner == 1) {
+        showDialog(
+            context: context,
+            builder: (_) => customDialog(
+                resetGame, "Player 1 Won", "To start Again click Ok"));
+      } else {
+        showDialog(
+            context: context,
+            builder: (_) => customDialog(
+                resetGame, "Player 2 Won", "To start Again click Ok"));
+      }
+    }
+    return winner;
   }
 
   void resetGame() {
