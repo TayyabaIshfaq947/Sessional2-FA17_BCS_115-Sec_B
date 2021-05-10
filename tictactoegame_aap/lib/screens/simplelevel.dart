@@ -28,8 +28,6 @@ class _gamepageState extends State<gamepage> {
   var player1;
   var player2;
   var activeplayer;
-  var check_limit = 1;
-  var count = 0;
   @override
   void initState() {
     super.initState();
@@ -157,46 +155,24 @@ class _gamepageState extends State<gamepage> {
     }
     if (winner != -1) {
       if (winner == 1) {
-        count++;
         showDialog(
             context: context,
             builder: (_) => customDialog(
-                resetGame, "Player 1 Won", "To start Again click Ok", _Timer));
+                  resetGame,
+                  "Player 1 Won",
+                  "To start Again click Ok",
+                ));
       } else {
         showDialog(
             context: context,
             builder: (_) => customDialog(
-                resetGame, "Player 2 Won", "To start Again click Ok", _Timer));
+                  resetGame,
+                  "Player 2 Won",
+                  "To start Again click Ok",
+                ));
       }
     }
     return winner;
-  }
-
-  void _Timer() {
-    setState(() {
-      if (check_limit < 5) {
-        resetGame();
-        setState(() {
-          check_limit++;
-        });
-      } else {
-        getup();
-        check_limit = 0;
-      }
-    });
-  }
-
-  void getup() {
-    setState(() {
-      buttonlist = doInit();
-    });
-
-    Navigator.push(
-        context,
-        new MaterialPageRoute(
-            builder: (context) => new chrashpage(
-                  score: count,
-                )));
   }
 
   void resetGame() {

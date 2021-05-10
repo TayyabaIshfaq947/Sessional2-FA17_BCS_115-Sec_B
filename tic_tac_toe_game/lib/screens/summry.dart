@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class chrashpage extends StatelessWidget {
+class Summary1 extends StatelessWidget {
   final int score;
-  chrashpage({Key key, @required this.score}) : super(key: key);
+  Summary1({Key key, @required this.score}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

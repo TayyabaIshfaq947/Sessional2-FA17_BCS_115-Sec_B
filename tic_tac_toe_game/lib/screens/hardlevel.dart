@@ -1,47 +1,40 @@
 import 'dart:math';
-import 'dart:ui';
-import 'dart:async';
-import 'package:contactus/contactus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:giffy_dialog/giffy_dialog.dart';
-import 'package:tic_tac_toe_game/screens/simplelevel.dart';
-import '../flutter_icon_home.dart';
-import 'game_button.dart';
+import 'package:tic_tac_toe_game/screens/game_button.dart';
+import 'package:tic_tac_toe_game/screens/summry.dart';
+import 'package:tic_tac_toe_game/screens/dialog.dart';
+import 'package:tic_tac_toe_game/flutter_icon_home.dart';
+import 'package:tic_tac_toe_game/screens/summry.dart';
+import 'package:contactus/contactus.dart';
 import 'homepage.dart';
-import 'dart:async';
 
-class hard extends StatelessWidget {
+class hard extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: gamepage(),
-    );
-  }
+  _HomePageState createState() => new _HomePageState();
 }
 
-class gamepage extends StatefulWidget {
-  @override
-  _gamepageState createState() => _gamepageState();
-}
-
-class _gamepageState extends State<gamepage> {
-  List<GameButton> buttonlist;
+class _HomePageState extends State<hard> {
+  var check_limit = 1;
+  var p1 = 0;
+  List<GameButton> buttonsList;
   var player1;
   var player2;
-  var activeplayer;
-  int limit = 5;
+  var activePlayer;
+
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
-    buttonlist = doInit();
+    buttonsList = doInit();
   }
 
   List<GameButton> doInit() {
-    activeplayer = 1;
-    player1 = new List.empty(growable: true);
-    player2 = new List.empty(growable: true);
-    var gamebuttons = <GameButton>[
+    player1 = new List();
+    player2 = new List();
+    activePlayer = 1;
+
+    var gameButtons = <GameButton>[
       new GameButton(id: 1),
       new GameButton(id: 2),
       new GameButton(id: 3),
@@ -59,70 +52,55 @@ class _gamepageState extends State<gamepage> {
       new GameButton(id: 15),
       new GameButton(id: 16),
     ];
-    return gamebuttons;
+    return gameButtons;
   }
 
   void playGame(GameButton gb) {
     setState(() {
-      if (activeplayer == 1) {
+      if (activePlayer == 1) {
         gb.text = "X";
-        gb.bg = Colors.pinkAccent;
-        activeplayer = 2;
+        gb.bg = Colors.red;
+        activePlayer = 2;
         player1.add(gb.id);
       } else {
         gb.text = "0";
-        gb.bg = Colors.cyan;
-        activeplayer = 1;
+        gb.bg = Colors.black;
+        activePlayer = 1;
         player2.add(gb.id);
       }
       gb.enabled = false;
       int winner = checkWinner();
       if (winner == -1) {
-        if (buttonlist.every((p) => p.text != "")) {
+        if (buttonsList.every((p) => p.text != "")) {
           showDialog(
-            context: context,
-            builder: (_) => NetworkGiffyDialog(
-              buttonCancelColor: Colors.teal,
-              buttonCancelText: Text("Ok"),
-              image: Image.asset('assets/images/tie.gif'),
-              title: Text(
-                "Game Tie",
-                style: TextStyle(
-                    fontStyle: FontStyle.italic,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25,
-                    color: Colors.black),
-              ),
-              onlyCancelButton: true,
-              entryAnimation: EntryAnimation.TOP_RIGHT,
-              cornerRadius: 8.0,
-            ),
-          );
+              context: context,
+              builder: (_) => customDialog(
+                  resetGame, "Game Tie", "To start Again click Ok"));
         } else {
-          activeplayer == 2 ? autoplay() : null;
+          activePlayer == 2 ? autoPlay() : null;
         }
       }
     });
   }
 
-  void autoplay() {
-    var emptyCells = new List.empty(growable: true);
-    var list = new List.generate(12, (i) => i + 1);
+  void autoPlay() {
+    var emptyCells = new List();
+    var list = new List.generate(9, (i) => i + 1);
     for (var cellID in list) {
       if (!(player1.contains(cellID) || player2.contains(cellID))) {
         emptyCells.add(cellID);
       }
     }
+
     var r = new Random();
-    var randindex = r.nextInt(emptyCells.length - 1);
-    var cellId = emptyCells[randindex];
-    int i = buttonlist.indexWhere((p) => p.id == cellId);
-    playGame(buttonlist[i]);
+    var randIndex = r.nextInt(emptyCells.length - 1);
+    var cellID = emptyCells[randIndex];
+    int i = buttonsList.indexWhere((p) => p.id == cellID);
+    playGame(buttonsList[i]);
   }
 
   int checkWinner() {
     var winner = -1;
-    //row1
     if (player1.contains(1) &&
         player1.contains(2) &&
         player1.contains(3) &&
@@ -135,20 +113,22 @@ class _gamepageState extends State<gamepage> {
         player2.contains(4)) {
       winner = 2;
     }
-    //row2
-    if (player1.contains(5) &&
+
+    // row 2
+    if (player1.contains(8) &&
+        player1.contains(5) &&
         player1.contains(6) &&
-        player1.contains(7) &&
-        player1.contains(8)) {
+        player1.contains(7)) {
       winner = 1;
     }
-    if (player2.contains(5) &&
+    if (player2.contains(8) &&
+        player2.contains(5) &&
         player2.contains(6) &&
-        player2.contains(7) &&
-        player2.contains(8)) {
+        player2.contains(7)) {
       winner = 2;
     }
-    //row 3
+
+    // row 3
     if (player1.contains(9) &&
         player1.contains(10) &&
         player1.contains(11) &&
@@ -161,7 +141,8 @@ class _gamepageState extends State<gamepage> {
         player2.contains(12)) {
       winner = 2;
     }
-    // row 4
+
+    //row4
     if (player1.contains(13) &&
         player1.contains(14) &&
         player1.contains(15) &&
@@ -174,7 +155,8 @@ class _gamepageState extends State<gamepage> {
         player2.contains(16)) {
       winner = 2;
     }
-    //column1
+
+    // col 1
     if (player1.contains(1) &&
         player1.contains(5) &&
         player1.contains(9) &&
@@ -187,7 +169,8 @@ class _gamepageState extends State<gamepage> {
         player2.contains(13)) {
       winner = 2;
     }
-    //column2
+
+    // col 2
     if (player1.contains(2) &&
         player1.contains(6) &&
         player1.contains(10) &&
@@ -200,7 +183,8 @@ class _gamepageState extends State<gamepage> {
         player2.contains(14)) {
       winner = 2;
     }
-    //column 3
+
+    // col 3
     if (player1.contains(3) &&
         player1.contains(7) &&
         player1.contains(11) &&
@@ -213,7 +197,8 @@ class _gamepageState extends State<gamepage> {
         player2.contains(15)) {
       winner = 2;
     }
-    //column 4
+
+    //col4
     if (player1.contains(4) &&
         player1.contains(8) &&
         player1.contains(12) &&
@@ -227,19 +212,6 @@ class _gamepageState extends State<gamepage> {
       winner = 2;
     }
     //diagonal1
-    if (player1.contains(1) &&
-        player1.contains(6) &&
-        player1.contains(11) &&
-        player1.contains(16)) {
-      winner = 1;
-    }
-    if (player2.contains(1) &&
-        player2.contains(6) &&
-        player2.contains(11) &&
-        player2.contains(16)) {
-      winner = 2;
-    }
-    // diagonal2
     if (player1.contains(4) &&
         player1.contains(7) &&
         player1.contains(10) &&
@@ -252,281 +224,150 @@ class _gamepageState extends State<gamepage> {
         player2.contains(13)) {
       winner = 2;
     }
+
+    //diagonal2
+    if (player1.contains(1) &&
+        player1.contains(6) &&
+        player1.contains(11) &&
+        player1.contains(16)) {
+      winner = 1;
+    }
+    if (player2.contains(1) &&
+        player2.contains(6) &&
+        player2.contains(11) &&
+        player2.contains(16)) {
+      winner = 2;
+    }
+
     if (winner != -1) {
       if (winner == 1) {
+        p1++;
+
         showDialog(
-          context: context,
-          builder: (_) => NetworkGiffyDialog(
-            buttonCancelColor: Colors.teal,
-            buttonCancelText: Text("Ok"),
-            image: Image.asset('assets/images/congrats.gif'),
-            title: Text(
-              "Player 1 won",
-              style: TextStyle(
-                  fontStyle: FontStyle.italic,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 25,
-                  color: Colors.black),
-            ),
-            onlyCancelButton: true,
-            entryAnimation: EntryAnimation.TOP_LEFT,
-            cornerRadius: 8.0,
-          ),
-        );
+            context: context,
+            builder: (_) => new customDialog(resetGame, "Player 1 Won",
+                "Press the reset button to start again.", startTimer));
       } else {
         showDialog(
-          context: context,
-          builder: (_) => NetworkGiffyDialog(
-            buttonCancelColor: Colors.teal,
-            buttonCancelText: Text("Ok"),
-            image: Image.asset('assets/images/congrats.gif'),
-            title: Text(
-              "Player 2 won",
-              style: TextStyle(
-                  fontStyle: FontStyle.italic,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 25,
-                  color: Colors.black),
-            ),
-            onlyCancelButton: true,
-            entryAnimation: EntryAnimation.BOTTOM_LEFT,
-            cornerRadius: 8.0,
-          ),
-        );
+            context: context,
+            builder: (_) => new customDialog(resetGame, "Player 2 Won",
+                "Press the reset button to start again.", startTimer));
       }
     }
+
     return winner;
+  }
+
+  void startTimer() {
+    setState(() {
+      if (check_limit < 5) {
+        resetGame();
+        setState(() {
+          check_limit++;
+        });
+      } else {
+        getup();
+        check_limit = 0;
+      }
+    });
   }
 
   void resetGame() {
     if (Navigator.canPop(context)) Navigator.pop(context);
     setState(() {
-      buttonlist = doInit();
+      buttonsList = doInit();
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-          backgroundColor: Colors.cyan,
-          appBar: AppBar(
-            backgroundColor: Colors.pink,
-            title: Center(
-              child: Text(
-                "Tic Tac Toe",
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            actions: <Widget>[
-              IconButton(
-                  icon: Icon(MyFlutterApp.home),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => selecttype()));
-                  }),
-              IconButton(
-                icon: const Icon(Icons.contact_phone_outlined),
-                tooltip: 'ContactUs',
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ContactUs()));
-                },
-              ),
-            ],
-          ),
-          body: Container(
-            height: 1000,
-            width: 1000,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 20.0,
-                ),
-                Text(
-                  "Hard Level",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 40.0,
-                      fontWeight: FontWeight.bold,
-                      fontStyle: FontStyle.italic),
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                Center(
-                  child: Container(
-                    height: 300,
-                    width: 300,
-                    padding: EdgeInsets.fromLTRB(20, 6.0, 20, 10),
-                    child: Expanded(
-                      child: GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 4,
-                          childAspectRatio: 1.0,
-                          mainAxisSpacing: 5.0,
-                          crossAxisSpacing: 5.0,
-                        ),
-                        padding: EdgeInsets.all(8.0),
-                        itemCount: buttonlist.length,
-                        itemBuilder: (context, i) => SizedBox(
-                          height: 100.0,
-                          width: 100.0,
-                          child: RaisedButton(
-                            padding: EdgeInsets.all(5.0),
-                            onPressed: buttonlist[i].enabled
-                                ? () => playGame(buttonlist[i])
-                                : null,
-                            child: Text(
-                              buttonlist[i].text,
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 15.0),
-                            ),
-                            color: buttonlist[i].bg,
-                            disabledColor: buttonlist[i].bg,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                FlatButton(
-                  onPressed: resetGame,
-                  child: Text(
-                    "Reset",
-                    style: TextStyle(color: Colors.white, fontSize: 30.0),
-                  ),
-                  color: Colors.pinkAccent,
-                  shape: RoundedRectangleBorder(
-                      side: BorderSide(
-                          color: Colors.blue,
-                          width: 1,
-                          style: BorderStyle.solid),
-                      borderRadius: BorderRadius.circular(50)),
-                  padding: EdgeInsets.all(10.0),
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                FlatButton(
-                  onPressed: () {
-                    setState(() {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => selecttype()));
-                    });
-                  },
-                  child: Text(
-                    "Quit",
-                    style: TextStyle(color: Colors.white, fontSize: 30.0),
-                  ),
-                  color: Colors.red,
-                  shape: RoundedRectangleBorder(
-                      side: BorderSide(
-                          color: Colors.blue,
-                          width: 1,
-                          style: BorderStyle.solid),
-                      borderRadius: BorderRadius.circular(50)),
-                  padding: EdgeInsets.all(8.0),
-                )
-              ],
-            ),
-          ),
-          drawer: _myDrawer(),
-    );
-  }
-}
+  void getup() {
+    setState(() {
+      buttonsList = doInit();
+    });
 
-class _myDrawer extends StatelessWidget {
-  final Function ontap;
-  _myDrawer({this.ontap});
+    Navigator.push(
+        context,
+        new MaterialPageRoute(
+            builder: (context) => Summary1(
+                  score: p1,
+                )));
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.35,
-      child: Drawer(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(color: Colors.cyan),
-              child: Padding(
-                padding: EdgeInsets.all(6),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Container(
-                      width: 60,
-                      height: 60,
-                      margin: EdgeInsets.only(left: 30),
-                      child: CircleAvatar(
-                        backgroundImage:
-                        AssetImage("assets/images/tayyaba.png"),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Text(
-                      'Tayyaba Ishfaq',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 3,
-                    ),
-                    Text(
-                      'taibatahira84@gmail.com',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
+    return new Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.deepOrange,
+        title: Text(
+          "Tic Tac Toe Simple Level",
+        ),
+      ),
+      body: new Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          new Expanded(
+            child: new GridView.builder(
+              padding: const EdgeInsets.all(10.0),
+              gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 4,
+                  childAspectRatio: 1.0,
+                  crossAxisSpacing: 9.0,
+                  mainAxisSpacing: 9.0),
+              itemCount: buttonsList.length,
+              itemBuilder: (context, i) => new SizedBox(
+                width: 100.0,
+                height: 100.0,
+                child: new RaisedButton(
+                  padding: const EdgeInsets.all(8.0),
+                  onPressed: buttonsList[i].enabled
+                      ? () => playGame(buttonsList[i])
+                      : null,
+                  child: new Text(
+                    buttonsList[i].text,
+                    style: new TextStyle(color: Colors.white, fontSize: 20.0),
+                  ),
+                  color: buttonsList[i].bg,
+                  disabledColor: buttonsList[i].bg,
                 ),
               ),
             ),
-            ListTile(
-              leading: Icon(Icons.arrow_right),
-              title: Text('Easy Level'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => simple()),
-                );
-              },
+          ),
+          new MaterialButton(
+            height: 30.0,
+            minWidth: 100.0,
+            child: new Text(
+              "Reset",
+              style: new TextStyle(color: Colors.white, fontSize: 20.0),
             ),
-            ListTile(
-              leading: Icon(Icons.arrow_right),
-              title: Text('Hard Level'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => hard()),
-                );
-              },
+            color: Colors.red,
+            padding: const EdgeInsets.all(20.0),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => hard()),
+              );
+            },
+          ),
+          new SizedBox(
+            height: 10.0,
+          ),
+          new MaterialButton(
+            height: 40.0,
+            minWidth: 100.0,
+            child: new Text(
+              "Win Games",
+              style: new TextStyle(color: Colors.white, fontSize: 20.0),
             ),
-            ListTile(
-              leading: Icon(Icons.account_box_rounded),
-              title: Text('Contact Us'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ContactUs()),
-                );
-              },
-            ),
-          ],
-        ),
+            color: Colors.red,
+            padding: const EdgeInsets.all(10.0),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => selecttype()),
+              );
+            },
+          ),
+        ],
       ),
     );
   }
 }
-
