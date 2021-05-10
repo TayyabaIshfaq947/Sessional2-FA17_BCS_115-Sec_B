@@ -6,7 +6,6 @@ class customDialog extends StatelessWidget {
   final content;
   final actiontext;
   final VoidCallback callback;
-
   customDialog(this.callback, this.title, this.content,
       [this.actiontext = "Ok"]);
   @override

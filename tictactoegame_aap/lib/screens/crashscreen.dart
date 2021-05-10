@@ -1,41 +1,91 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:tictactoegame_aap/screens/homepage.dart';
 
 class chrashpage extends StatelessWidget {
-  final int score;
-  chrashpage({Key key, @required this.score}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    return new WillPopScope(
-      onWillPop: () async => false,
-      child: Scaffold(
-        backgroundColor: Colors.cyan,
-        body: Center(
-          child: new Container(
-            child: new Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                new Text(
-                  "App crashed",
-                  style: new TextStyle(fontSize: 35.0),
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+            backgroundColor: Colors.cyan,
+            body: Center(
+              child: Container(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Text(
+                        "App Crashed",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "player 1 play 4 time",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Text(
+                          " : ",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Text(
+                          "player 2 play 1 time",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 100,
+                    ),
+                    Center(
+                      child: FlatButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => selecttype()),
+                          );
+                        },
+                        child: Text(
+                          "Exit",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        color: Colors.red,
+                      ),
+                    ),
+                  ],
                 ),
-                new Padding(padding: EdgeInsets.all(30.0)),
-                new MaterialButton(
-                  color: Colors.red,
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: new Text(
-                    "Exit",
-                    style: new TextStyle(fontSize: 20.0, color: Colors.white),
-                  ),
-                )
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
+              ),
+            )));
   }
 }

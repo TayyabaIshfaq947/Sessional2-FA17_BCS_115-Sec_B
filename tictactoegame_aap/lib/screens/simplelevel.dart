@@ -157,19 +157,13 @@ class _gamepageState extends State<gamepage> {
       if (winner == 1) {
         showDialog(
             context: context,
-            builder: (_) => customDialog(
-                  resetGame,
-                  "Player 1 Won",
-                  "To start Again click Ok",
-                ));
+            builder: (_) => customDialog(resetGame, "Player 1 Won",
+                "To start Again click Ok", chrashpage));
       } else {
         showDialog(
             context: context,
-            builder: (_) => customDialog(
-                  resetGame,
-                  "Player 2 Won",
-                  "To start Again click Ok",
-                ));
+            builder: (_) => customDialog(resetGame, "Player 2 Won",
+                "To start Again click Ok", chrashpage));
       }
     }
     return winner;
