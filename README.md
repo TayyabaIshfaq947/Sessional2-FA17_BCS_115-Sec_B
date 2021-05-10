@@ -1,3 +1,4 @@
+![Uploading easylevel.gif…]()
 ![colorscheme](https://user-images.githubusercontent.com/79797290/117687933-bd786f80-b1d1-11eb-8538-1efb86b40f6f.gif)
 ![themecoloring](https://user-images.githubusercontent.com/79797290/117679832-0debcf00-b1ca-11eb-92d9-245e00d24b56.PNG)
 ![Animatedhardlevelpage](https://user-images.githubusercontent.com/79797290/117674072-cc0c5a00-b1c4-11eb-8cdc-c52324a198d0.gif)
