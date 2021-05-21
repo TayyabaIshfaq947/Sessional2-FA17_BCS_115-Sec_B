@@ -1,3 +1,4 @@
+![App crash page](https://user-images.githubusercontent.com/79797290/117701294-7f367c80-b1e0-11eb-8cbd-333039fec36f.PNG)
 ![easylevel](https://user-images.githubusercontent.com/79797290/117693421-742b1e80-b1d7-11eb-86ec-1723de888ccb.gif)
 ![colorscheme](https://user-images.githubusercontent.com/79797290/117687933-bd786f80-b1d1-11eb-8538-1efb86b40f6f.gif)
 ![themecoloring](https://user-images.githubusercontent.com/79797290/117679832-0debcf00-b1ca-11eb-92d9-245e00d24b56.PNG)
